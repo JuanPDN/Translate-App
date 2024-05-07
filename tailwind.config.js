@@ -12,12 +12,13 @@ export default {
       "7CA9F3": "#7CA9F3",
       "212936cc": "#212936cc",
       "121826cc": "#121826cc",
+      "transparent":"transparent"
     },
     backgroundImage: {
       "bg-hero": 'url("./assets/hero_img.jpg")',
     },
     fontFamily: {
-      "DM Sans": ['"DM Sans"', "sans-serif"],
+      "DM_Sans": ['"DM Sans"', "sans-serif"],
     },
     extend: {},
   },
