@@ -12,6 +12,7 @@ export default {
       "7CA9F3": "#7CA9F3",
       "212936cc": "#212936cc",
       "121826cc": "#121826cc",
+      "6C727F":"#6C727F",
       "transparent":"transparent"
     },
     backgroundImage: {
