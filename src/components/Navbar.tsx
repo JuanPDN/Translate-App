@@ -1,25 +1,22 @@
 import { useEffect, useState } from "react";
+
 import { Props } from "../interfaces/interface";
 import languages from "./languages";
 
 const Navbar: React.FC<Props> = ({ firstCard }) => {
   const [selected, setSelected] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedlanguage, setSelectedlanguage] = useState({
-    value: "es-ES",
-    name: "Spanish",
-  });
+
   let firstlanguage = [];
 
   if (firstCard) {
-    firstlanguage = languages.slice(0, 4);
+    firstlanguage = languages.slice(0, 3);
   } else {
-    firstlanguage = languages.slice(1, 4);
+    firstlanguage = languages.slice(1, 3);
   }
 
   useEffect(() => {
     setSelected(firstCard ? "en-EN" : "fr-FR");
-  }, [firstCard]);
+  }, []);
 
   return (
     <div className="w-full justify-between flex flex-row items-center relative">
@@ -30,45 +27,36 @@ const Navbar: React.FC<Props> = ({ firstCard }) => {
             className={`${
               selected === language.value && "bg-4D5562 text-F9FAFB"
             } px-3 py-2 cursor-pointer rounded-xl flex gap-1`}
-            onClick={() => {              
-              setSelected(language.value)
-              if (index === firstlanguage.length - 1) {
-                setIsDropdownOpen(!isDropdownOpen);
-              }
+            onClick={() => {
+              setSelected(language.value);
             }}
           >
-            {index === firstlanguage.length - 1
-              ? selectedlanguage.name
-              : language.name}
-            {index === firstlanguage.length - 1 && (
-              <img src="./src/assets/Expand_down.svg" alt="Expand_down" />
-            )}
+            {language.name}
           </li>
         ))}
-        {isDropdownOpen && (
-          <ul
-            className={`absolute top-full ${
-              firstCard ? "left-80" : "left-[10.5rem]"
-            } py-2  text-F9FAFB max-h-64 rounded-b-xl overflow-y-auto bg-4D5562/40 backdrop-blur-lg `}
+        <li className="relative flex items-center">
+          <select
+            id={firstCard ? "1" : "2"}
+            name="1"
+            onClick={() => {
+              setSelected("langs");
+            }}
+            className={`${
+              selected === "langs" ? "bg-4D5562 text-F9FAFB" : "bg-transparent"
+            } max-w-[5.5rem] appearance-none outline-none py-2 pl-3 pr-5 rounded-xl`}
           >
-            {languages.slice(4).map((language, index) => (
-              <li
-                className="px-3 hover:bg-6C727F cursor-pointer"
-                value={language.value}
-                key={index}
-                onClick={() => {
-                  setSelectedlanguage({
-                    value: language.value,
-                    name: language.name,
-                  });
-                  setIsDropdownOpen(!isDropdownOpen);
-                }}
-              >
-                {language.name}
-              </li>
+            {languages.slice(4).map((lang, index) => (
+              <option key={index} value={lang.value}>
+                {lang.name}
+              </option>
             ))}
-          </ul>
-        )}
+          </select>
+          <img
+            className="absolute right-1 pointer-events-none"
+            src="./src/assets/Expand_down.svg"
+            alt="Expand_down"
+          />
+        </li>
       </ul>
       {!firstCard && (
         <img
