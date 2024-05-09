@@ -5,7 +5,6 @@ const languages: Array<Language> = [
     { value: "auto", name: "Detect language" },
     { value: "en-EN", name: "English" },
     { value: "fr-FR", name: "French" },
-    { value: "es-ES", name: "Spanish" },
     { value: "zu-ZA", name: "Zulu" },
     { value: "yi-YD", name: "Yiddish" },
     { value: "xh-ZA", name: "Xhosa" },

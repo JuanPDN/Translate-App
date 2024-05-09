@@ -36,6 +36,7 @@ const Navbar: React.FC<Props> = ({ firstCard }) => {
         ))}
         <li className="relative flex items-center">
           <select
+            defaultValue="es-ES"
             name="langs"
             onClick={() => {
               setSelected("langs");
