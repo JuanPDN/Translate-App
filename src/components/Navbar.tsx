@@ -36,8 +36,7 @@ const Navbar: React.FC<Props> = ({ firstCard }) => {
         ))}
         <li className="relative flex items-center">
           <select
-            id={firstCard ? "1" : "2"}
-            name="1"
+            name="langs"
             onClick={() => {
               setSelected("langs");
             }}
@@ -45,7 +44,7 @@ const Navbar: React.FC<Props> = ({ firstCard }) => {
               selected === "langs" ? "bg-4D5562 text-F9FAFB" : "bg-transparent"
             } max-w-[5.5rem] appearance-none outline-none py-2 pl-3 pr-5 rounded-xl`}
           >
-            {languages.slice(4).map((lang, index) => (
+            {languages.slice(3).map((lang, index) => (
               <option key={index} value={lang.value}>
                 {lang.name}
               </option>
