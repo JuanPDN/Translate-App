@@ -5,6 +5,28 @@ import Navbar from "./Navbar.tsx";
 
 const Card: React.FC<Props> = ({ firstCard = false }) => {
   const [text, setText] = useState("Hello, how are you?");
+  const [copied, setCopied] = useState(false);
+
+  const copy = () => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => {
+          setCopied(false);
+        }, 1300);
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
+  };
+
+  const readText = () => {
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.rate = 1.1
+    speechSynthesis.speak(utterance);
+  }
 
   return (
     <div
@@ -33,12 +55,17 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
             className="p-2 border-2 border-4D5562 rounded-xl active:bg-394150"
             src="./src/assets/sound_max_fill.svg"
             alt="sound"
+            onClick={readText}
           />
           <img
             className="p-2 border-2 border-4D5562 rounded-xl active:bg-394150"
             src="./src/assets/Copy.svg"
             alt="Copy"
+            onClick={copy}
           />
+          {copied && (
+            <span className="relative top-2 text-CDD5E0">Copied!</span>
+          )}
         </div>
         {firstCard && (
           <button

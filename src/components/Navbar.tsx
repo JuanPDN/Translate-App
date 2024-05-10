@@ -41,6 +41,9 @@ const Navbar: React.FC<Props> = ({ firstCard }) => {
             onClick={() => {
               setSelected("langs");
             }}
+            onFocus={() => {
+              setSelected("langs");
+            }}
             className={`${
               selected === "langs" ? "bg-4D5562 text-F9FAFB" : "bg-transparent"
             } max-w-[5.5rem] appearance-none outline-none py-2 pl-3 pr-5 rounded-xl`}
