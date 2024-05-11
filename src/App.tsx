@@ -10,7 +10,7 @@ function App(): JSX.Element {
       />
       <div className="px-6 lg:px-[4.5rem] flex flex-col gap-4 xl:flex-row w-full py-[3.25rem]">
         <Card firstCard={true} />
-        <Card/>
+        <Card />
       </div>
     </div>
   );

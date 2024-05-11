@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { Props } from "../interfaces/interface.ts";
 import Navbar from "./Navbar.tsx";
+import { AppContext } from "../contexts/AppContext.tsx";
+import { GlobalContext } from "../types/types.ts";
 
 const Card: React.FC<Props> = ({ firstCard = false }) => {
-  const [text, setText] = useState("Hello, how are you?");
   const [copied, setCopied] = useState(false);
+  const { globalState, setGlobalState } = useContext(
+    AppContext
+  ) as GlobalContext;
 
   const copy = () => {
     navigator.clipboard
-      .writeText(text)
+      .writeText(globalState)
       .then(() => {
         setCopied(true);
         setTimeout(() => {
@@ -23,10 +27,10 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
   };
 
   const readText = () => {
-    const utterance = new SpeechSynthesisUtterance(text)
-    utterance.rate = 1.1
+    const utterance = new SpeechSynthesisUtterance(globalState);
+    utterance.rate = 1.1;
     speechSynthesis.speak(utterance);
-  }
+  };
 
   return (
     <div
@@ -36,18 +40,22 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
     >
       <Navbar firstCard={firstCard} />
       <textarea
-        className="bg-transparent mt-4 py-6 text-F9FAFB text-base font-bold caret-F9FAFB border-4D5562 border-t outline-none resize-none h-full"
+        className={`bg-transparent mt-4 py-6 text-F9FAFB text-base font-bold ${
+          firstCard ? "caret-F9FAFB" : "caret-transparent"
+        } border-4D5562 border-t outline-none resize-none h-full`}
         name="translate"
         id={firstCard ? "translate" : "translated"}
         rows={5}
         maxLength={500}
-        value={text}
+        value={globalState}
         onChange={(e) => {
-          setText(e.target.value);
+          if (firstCard) {
+            setGlobalState(e.target.value);
+          }
         }}
       ></textarea>
       {firstCard && (
-        <p className="text-end text-xs text-6C727F">{text.length}/500</p>
+        <p className="text-end text-xs text-6C727F">{globalState.length}/500</p>
       )}
       <div className="flex flex-row justify-between items-center pt-3">
         <div className="flex gap-2">
