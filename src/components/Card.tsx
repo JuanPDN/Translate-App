@@ -40,9 +40,8 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
     >
       <Navbar firstCard={firstCard} />
       <textarea
-        className={`bg-transparent mt-4 py-6 text-F9FAFB text-base font-bold ${
-          firstCard ? "caret-F9FAFB" : "caret-transparent"
-        } border-4D5562 border-t outline-none resize-none h-full`}
+        className="bg-transparent mt-4 py-6 text-F9FAFB text-base font-bold caret-F9FAFB border-4D5562 border-t outline-none resize-none h-full"
+        readOnly={!firstCard}
         name="translate"
         id={firstCard ? "translate" : "translated"}
         rows={5}
