@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { AppContext } from "../contexts/AppContext";
 import { LangContext } from "../contexts/LangContext";
-import { Props } from "../interfaces/interface";
+import { Language, Props } from "../interfaces/interface";
 import { GlobalContext, LanguageContext } from "../types/types";
 import languages from "./languages";
 
@@ -12,7 +12,7 @@ const Navbar: React.FC<Props> = ({ firstCard }) => {
     AppContext
   ) as GlobalContext;
 
-  let firstlanguage = [];
+  let firstlanguage:Array<Language> = [];
 
   if (firstCard) {
     firstlanguage = languages.slice(0, 3);

@@ -7,6 +7,7 @@ import { GlobalContext, LanguageContext } from "../types/types.ts";
 import { LangContext } from "../contexts/LangContext.tsx";
 
 const Card: React.FC<Props> = ({ firstCard = false }) => {
+  const [timer, setTimer] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
   const { lang } = useContext(LangContext) as LanguageContext;
   const { globalState, setGlobalState } = useContext(
@@ -80,6 +81,13 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
         onChange={(e) => {
           if (firstCard) {
             setGlobalState({ ...globalState, translate: e.target.value });
+            if (timer) {
+              clearTimeout(timer);
+            }
+            const count = setTimeout(() => {
+              loadTranslate();
+            }, 800);
+            setTimer(count);
           }
         }}
       ></textarea>
