@@ -6,9 +6,19 @@ export interface Props {
 
 export interface Language {
     value: string,
-    name:string
+    name: string
 }
 
 export interface Children {
     children: ReactNode
-  }
+}
+
+export interface Translate {
+    translate: string,
+    translated: string
+}
+
+export interface Lang {
+    lang1: string,
+    lang2:string
+}
