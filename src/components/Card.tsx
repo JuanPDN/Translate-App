@@ -15,14 +15,16 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
 
   const loadTranslate = async () => {
     try {
-      const data = await fetch(
-        `https://api.mymemory.translated.net/get?q=${globalState.translate}&langpair=${lang.lang1}|${lang.lang2}`
-      ).then((data) => data.json());
-      setGlobalState({
-        ...globalState,
-        translated:
-          globalState.translate !== "" ? data.responseData.translatedText : "",
-      });
+      if (globalState.translate !== "") {
+        const data = await fetch(
+          `https://api.mymemory.translated.net/get?q=${globalState.translate}&langpair=${lang.lang1}|${lang.lang2}`
+        ).then((data) => data.json());
+        setGlobalState({
+          ...globalState,
+          translated: data.responseData.translatedText,
+        });
+      }
+      return;
     } catch (error) {
       console.error(error);
       throw error;
