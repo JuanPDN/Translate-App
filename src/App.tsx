@@ -4,7 +4,7 @@ function App(): JSX.Element {
   return (
     <div className="bg-040711 bg-bg-hero bg-top xl:bg-[length:100%] bg-no-repeat flex flex-col items-center h-screen overflow-y-auto font-DM_Sans">
       <img
-        src="./src/assets/logo.svg"
+        src="/logo.svg"
         alt="logo"
         className="relative my-[3.25rem] top-10"
       />

@@ -20,7 +20,8 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
       ).then((data) => data.json());
       setGlobalState({
         ...globalState,
-        translated: data.responseData.translatedText,
+        translated:
+          globalState.translate !== "" ? data.responseData.translatedText : "",
       });
     } catch (error) {
       console.error(error);
@@ -89,13 +90,13 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
         <div className="flex gap-2">
           <img
             className="p-2 border-2 border-4D5562 rounded-xl active:bg-394150"
-            src="./src/assets/sound_max_fill.svg"
+            src="/sound_max_fill.svg"
             alt="sound"
             onClick={() => readText(firstCard ? lang.lang1 : lang.lang2)}
           />
           <img
             className="p-2 border-2 border-4D5562 rounded-xl active:bg-394150"
-            src="./src/assets/Copy.svg"
+            src="/Copy.svg"
             alt="Copy"
             onClick={copy}
           />
@@ -109,7 +110,7 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
             text-F9FAFB bg-3662E3 border-7CA9F3 active:bg-7CA9F3 transition-colors ease-in-out"
             onClick={loadTranslate}
           >
-            <img src="./src/assets/Sort_alfa.svg" alt="Sort_alfa" />
+            <img src="/Sort_alfa.svg" alt="Sort_alfa" />
             Translate
           </button>
         )}
