@@ -94,7 +94,7 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
         readOnly={!firstCard}
         name="translate"
         id={firstCard ? "translate" : "translated"}
-        rows={6}
+        rows={5}
         maxLength={500}
         value={firstCard ? globalState.translate : globalState.translated}
         onInput={(e) => {
