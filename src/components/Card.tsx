@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Props } from "../interfaces/interface.ts";
 import Navbar from "./Navbar.tsx";
@@ -14,18 +14,22 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
     AppContext
   ) as GlobalContext;
 
-  const loadTranslate = async () => {
+  const loadTranslate = async (translate: string) => {
     try {
-      if (globalState.translate !== "") {
+      if (translate !== "") {
         const data = await fetch(
-          `https://api.mymemory.translated.net/get?q=${globalState.translate}&langpair=${lang.lang1}|${lang.lang2}`
+          `https://api.mymemory.translated.net/get?q=${translate}&langpair=${lang.lang1}|${lang.lang2}`
         ).then((data) => data.json());
-        setGlobalState({
-          ...globalState,
+        setGlobalState((prevGlobalState) => ({
+          ...prevGlobalState,
           translated: data.responseData.translatedText,
-        });
+        }));
+      } else {
+        setGlobalState((prevGlobalState) => ({
+          ...prevGlobalState,
+          translated: "",
+        }));
       }
-      return;
     } catch (error) {
       console.error(error);
       throw error;
@@ -56,9 +60,24 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
     speechSynthesis.speak(utterance);
   };
 
+  const handleInputChange = (inputValue: string) => {
+    setGlobalState((prevGlobalState) => ({
+      ...prevGlobalState,
+      translate: inputValue,
+    }));
+
+    if (timer) {
+      clearTimeout(timer);
+    }
+    const newTimer = setTimeout(() => {
+      loadTranslate(inputValue);
+    }, 700);
+    setTimer(newTimer);
+  };
+
   useEffect(() => {
     if (firstCard) {
-      loadTranslate();
+      loadTranslate(globalState.translate);
     }
     return;
   }, [lang]);
@@ -78,17 +97,8 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
         rows={6}
         maxLength={500}
         value={firstCard ? globalState.translate : globalState.translated}
-        onChange={(e) => {
-          if (firstCard) {
-            setGlobalState({ ...globalState, translate: e.target.value });
-            if (timer) {
-              clearTimeout(timer);
-            }
-            const count = setTimeout(() => {
-              loadTranslate();
-            }, 800);
-            setTimer(count);
-          }
+        onInput={(e) => {
+          handleInputChange(e.currentTarget.value);
         }}
       ></textarea>
       {firstCard && (
@@ -118,7 +128,7 @@ const Card: React.FC<Props> = ({ firstCard = false }) => {
           <button
             className="flex gap-3 py-3 px-6 border-[1px] rounded-xl text-base
             text-F9FAFB bg-3662E3 border-7CA9F3 active:bg-7CA9F3 transition-colors ease-in-out"
-            onClick={loadTranslate}
+            onClick={() => loadTranslate(globalState.translate)}
           >
             <img src="/Sort_alfa.svg" alt="Sort_alfa" />
             Translate
